@@ -142,7 +142,9 @@ template_summary <- function(dataname,
 
   env_sum_vars <- list(
     sum_vars = sum_vars,
-    sum_var_labels = var_labels[sum_vars],
+    sum_var_labels = vapply(
+      var_labels[sum_vars], function(label) ifelse(is.na(label), NA_character_, label), character(1)
+    ),
     na.rm = na.rm,
     na_level = na_level,
     denom = ifelse(denominator == "n", "n", "N_col"),
@@ -151,6 +153,7 @@ template_summary <- function(dataname,
       ifelse(denominator == "omit", "count", "count_fraction")
     )
   )
+  browser()
 
   layout_list <- add_expr(
     layout_list,
@@ -181,6 +184,7 @@ template_summary <- function(dataname,
       )
     }
   )
+  browser()
 
   if (!is.null(arm_var_labels)) {
     layout_list <- add_expr(
